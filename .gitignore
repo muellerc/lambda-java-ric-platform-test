@@ -1,0 +1,13 @@
+.DS_Store
+*.iml
+/aws-lambda-java-runtime-interface-client-2.1.0.jar
+/aws-lambda-java-runtime-interface-client-2.1.0.pom
+/runtime-x86.zip
+/runtime-arm.zip
+
+aws-lambda-java-libs/
+.idea/
+target/
+cdk.out/
+
+
