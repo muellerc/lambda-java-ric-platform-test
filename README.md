@@ -69,6 +69,10 @@ group by function, ispresent(@initDuration) as coldstart
 | sort by function, coldstart
 ```
 
+You see results similar to:
+
+![Resuts](docs/results.png)
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
