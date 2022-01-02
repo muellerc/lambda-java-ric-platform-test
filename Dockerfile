@@ -24,11 +24,24 @@ WORKDIR /software/example-function
 RUN mvn clean package
 
 
-# Package everything together into a custom runtime archive
 WORKDIR /
 
-RUN jlink --add-modules ALL-MODULE-PATH --verbose --compress 2 --strip-java-debug-attributes --no-header-files --no-man-pages --output /jre-17
+# Create a Java 17 JRE which contains all modules
+RUN jlink --add-modules ALL-MODULE-PATH \
+    --verbose \
+    --compress 2 \
+    --strip-java-debug-attributes \
+    --no-header-files \
+    --no-man-pages \
+    --output /jre-17
 
+# Use Javas Application Class Data Sharing feature to precompile JDK and our function.jar file
+# it creates the file /jre-17/lib/server/classes.jsa
+RUN /jre-17/bin/java -Xshare:dump \
+    -Xbootclasspath/a:/software/example-function/target/function.jar \
+    -version
+
+# Package everything together into a custom runtime archive
 COPY bootstrap .
 RUN chmod 755 bootstrap
 RUN cp /software/example-function/target/function.jar function.jar
