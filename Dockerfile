@@ -9,15 +9,6 @@ RUN yum -y update \
     && yum install -y java-17-amazon-corretto-jmods maven zip
 
 
-# Add the aws-lambda-java-runtime-interface-client-2.1.0.jar manually to the local Maven repo,
-# as it is not available at Maven central.
-COPY aws-lambda-java-runtime-interface-client-2.1.0.jar .
-COPY aws-lambda-java-runtime-interface-client-2.1.0.pom .
-RUN mvn install:install-file \
-    -Dfile=aws-lambda-java-runtime-interface-client-2.1.0.jar \
-    -DpomFile=aws-lambda-java-runtime-interface-client-2.1.0.pom
-
-
 # Copy the software folder to the image and build the function
 COPY software software
 WORKDIR /software/example-function
